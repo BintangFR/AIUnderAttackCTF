@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block title %}{{ challenge.title }} — PromptCTF{% endblock %}
+
+{% block content %}
+
+<div class="challenge-page">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="{{ url_for('index') }}">← All Challenges</a>
+    <span>/</span>
+    <span>{{ challenge.category }}</span>
+    <span>/</span>
+    <span>{{ challenge.title }}</span>
+  </div>
+
+  <div class="challenge-layout">
+
+    <!-- LEFT PANEL: Info -->
+    <aside class="info-panel">
+
+      <div class="panel-header">
+        <span class="cat-badge">{{ challenge.category }}</span>
+        <span class="diff-badge {{ challenge.difficulty_class }}">{{ challenge.difficulty }}</span>
+        <span class="pts-badge">{{ challenge.points }} pts</span>
+      </div>
+
+      <h1 class="challenge-title">{{ challenge.title }}</h1>
+
+      {% if challenge_id in completed %}
+      <div class="solved-banner">✓ Challenge Solved!</div>
+      {% endif %}
+
+      <!-- Tabs -->
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="scenario">Scenario</button>
+        <button class="tab-btn" data-tab="background">Background</button>
+        <button class="tab-btn" data-tab="objectives">Objectives</button>
+        <button class="tab-btn" data-tab="mitigation">Mitigation</button>
+      </div>
+
+      <div class="tab-content" id="tab-scenario">
+        <p class="panel-text">{{ challenge.description }}</p>
+      </div>
+
+      <div class="tab-content hidden" id="tab-background">
+        <p class="panel-text">{{ challenge.background }}</p>
+      </div>
+
+      <div class="tab-content hidden" id="tab-objectives">
+        <ul class="objectives-list">
+          {% for obj in challenge.learning_objectives %}
+          <li>{{ obj }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="tab-content hidden" id="tab-mitigation">
+        <p class="panel-text">{{ challenge.mitigation }}</p>
+      </div>
+
+      <!-- Hints -->
+      <div class="hints-section">
+        <h3 class="hints-title">Hints <span class="hints-count" id="hints-used">0 / {{ challenge.hints|length }} used</span></h3>
+        <div id="hints-container"></div>
+        <button class="btn-hint" id="hint-btn" data-challenge="{{ challenge_id }}" data-total="{{ challenge.hints|length }}">
+          Reveal Next Hint
+        </button>
+      </div>
+
+      <!-- Nav -->
+      <div class="challenge-nav">
+        {% if challenge_id > 1 %}
+        <a href="{{ url_for('challenge', challenge_id=challenge_id - 1) }}" class="nav-ch-btn">← Previous</a>
+        {% else %}
+        <span></span>
+        {% endif %}
+        {% if challenge_id < total %}
+        <a href="{{ url_for('challenge', challenge_id=challenge_id + 1) }}" class="nav-ch-btn">Next →</a>
+        {% endif %}
+      </div>
+
+    </aside>
+
+    <!-- RIGHT PANEL: AI Terminal + Flag -->
+    <div class="terminal-panel">
+
+      <div class="terminal-header">
+        <div class="terminal-dots">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+        <span class="terminal-label">{{ challenge.scenario_label }}</span>
+        <button class="btn-clear" id="clear-btn" title="Clear conversation">⟳ Reset</button>
+      </div>
+
+      <div class="terminal-context">
+        <p class="context-text">{{ challenge.scenario_context }}</p>
+      </div>
+
+      <div class="chat-window" id="chat-window">
+        <div class="chat-message ai-message">
+          <span class="msg-icon">🤖</span>
+          <div class="msg-bubble">
+            Hello! How can I assist you today?
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-input-row">
+        <textarea
+          id="chat-input"
+          class="chat-textarea"
+          placeholder="Type your message and press Enter (Shift+Enter for newline)..."
+          rows="2"
+          maxlength="2000"
+        ></textarea>
+        <button class="btn-send" id="send-btn">Send</button>
+      </div>
+
+      <div class="char-count"><span id="char-count">0</span>/2000</div>
+
+      <!-- Flag submission -->
+      <div class="flag-section">
+        <h3 class="flag-title">Submit Flag</h3>
+        <p class="flag-desc">Found the flag? It will look like <code>FLAG{...}</code></p>
+        <div class="flag-input-row">
+          <input
+            type="text"
+            id="flag-input"
+            class="flag-input"
+            placeholder="FLAG{...}"
+            autocomplete="off"
+            spellcheck="false"
+          >
+          <button class="btn-flag" id="flag-btn">Submit</button>
+        </div>
+        <div id="flag-feedback" class="flag-feedback hidden"></div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const CHALLENGE_ID = {{ challenge_id }};
+</script>
+<script src="{{ url_for('static', filename='js/challenge.js') }}"></script>
+{% endblock %}

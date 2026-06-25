@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}About — PromptCTF{% endblock %}
+
+{% block content %}
+
+<div class="about-page">
+  <div class="about-inner">
+
+    <h1 class="page-title">About PromptCTF</h1>
+    <p class="page-subtitle">
+      An AI Security Capture The Flag platform for learning Prompt Injection attacks
+      through hands-on, interactive challenges.
+    </p>
+
+    <div class="about-section">
+      <h2>Project Context</h2>
+      <p>
+        This platform was developed as part of COMP6441 (Security Engineering & Cyber Security) at UNSW Sydney.
+        It is inspired by the <a href="https://guidedctf.sec.edu.au" target="_blank" rel="noopener">GuidedCTF</a>
+        format used at UNSW, adapted for AI security threats that traditional CTF platforms do not cover.
+      </p>
+      <p>
+        As Large Language Models (LLMs) such as Claude, ChatGPT, and Gemini become embedded in
+        production systems, Prompt Injection has emerged as one of the most critical and least
+        understood attack surfaces. This platform gives students a safe environment to experience
+        these attacks first-hand.
+      </p>
+    </div>
+
+    <div class="about-section">
+      <h2>Challenge Categories</h2>
+      <div class="category-grid">
+        <div class="category-card">
+          <div class="cat-icon">💉</div>
+          <h3>Direct Prompt Injection</h3>
+          <p>
+            The attacker directly provides malicious input to an AI-powered application,
+            overriding its system instructions to extract hidden information or change behaviour.
+          </p>
+        </div>
+        <div class="category-card">
+          <div class="cat-icon">🎭</div>
+          <h3>Role Manipulation</h3>
+          <p>
+            Also known as persona injection or jailbreaking. The attacker convinces the AI to
+            adopt a different identity or operate under a fictional context that bypasses restrictions.
+          </p>
+        </div>
+        <div class="category-card">
+          <div class="cat-icon">🔍</div>
+          <h3>Information Disclosure</h3>
+          <p>
+            Sensitive data embedded in the AI's context (documents, credentials, instructions)
+            is extracted through indirect questioning, completion attacks, or roleplay framing.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-section">
+      <h2>Security Engineering Principles</h2>
+      <p>
+        Each challenge is designed to demonstrate a failure of one or more security engineering principles:
+      </p>
+      <ul class="principles-list">
+        <li><strong>Trust Boundaries:</strong> AI systems blur the boundary between instruction-giver and user — all input should be treated as untrusted.</li>
+        <li><strong>Least Privilege:</strong> An AI assistant should never have access to more sensitive data than it needs to complete its task.</li>
+        <li><strong>Defence in Depth:</strong> A single textual restriction in a system prompt is not a security control. Multiple independent layers are required.</li>
+        <li><strong>Verification and Validation:</strong> AI output must be validated before it reaches the user or downstream systems.</li>
+        <li><strong>Separation of Concerns:</strong> Credentials, secrets, and sensitive data must never be embedded in the AI's context window.</li>
+      </ul>
+    </div>
+
+    <div class="about-section">
+      <h2>How to Use This Platform</h2>
+      <ol class="how-list">
+        <li>Read the <strong>Scenario</strong> tab to understand the target application and your goal.</li>
+        <li>Read the <strong>Background</strong> tab to understand the attack category.</li>
+        <li>Interact with the AI chat panel — try different prompt injection techniques.</li>
+        <li>If you get stuck, reveal hints one at a time (avoid jumping to the last hint too quickly).</li>
+        <li>Once you find the flag, submit it in the flag box. The format is always <code>FLAG{...}</code>.</li>
+        <li>Read the <strong>Mitigation</strong> tab after completing the challenge to understand how it should have been fixed.</li>
+      </ol>
+    </div>
+
+    <div class="about-section">
+      <h2>Responsible Use</h2>
+      <p>
+        This platform contains intentionally vulnerable AI systems for educational purposes only.
+        The techniques demonstrated here should only be applied to systems you own or have explicit
+        permission to test. Prompt injection attacks against production systems without authorisation
+        may be illegal and unethical.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(New-Item -ItemType Directory -Force \"c:\\\\Users\\\\binta\\\\Downloads\\\\COMP6441\\\\Project\\\\templates\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"c:\\\\Users\\\\binta\\\\Downloads\\\\COMP6441\\\\Project\\\\static\\\\css\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"c:\\\\Users\\\\binta\\\\Downloads\\\\COMP6441\\\\Project\\\\static\\\\js\")",
+      "PowerShell(& \"C:\\\\Users\\\\binta\\\\.local\\\\bin\\\\python3.14.exe\" --version)"
+    ]
+  }
+}

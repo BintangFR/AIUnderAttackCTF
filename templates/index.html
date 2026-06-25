@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Challenges — PromptCTF{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">AI Security · Capture The Flag</div>
+    <h1 class="hero-title">Prompt Injection<br><span class="accent">Challenge Lab</span></h1>
+    <p class="hero-desc">
+      Learn how attackers exploit Large Language Models through hands-on, interactive challenges.
+      Each scenario places you inside a real application — your goal is to manipulate the embedded AI
+      into leaking secrets it was told to protect.
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-n">{{ challenges|length }}</span>
+        <span class="stat-l">Challenges</span>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat">
+        <span class="stat-n">3</span>
+        <span class="stat-l">Attack Categories</span>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat">
+        <span class="stat-n">600</span>
+        <span class="stat-l">Total Points</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="challenges-section">
+  <div class="section-inner">
+    <h2 class="section-title">Challenges</h2>
+
+    <div class="challenge-grid">
+      {% for id, ch in challenges.items() %}
+      <a href="{{ url_for('challenge', challenge_id=id) }}" class="challenge-card {% if id in completed %}card-completed{% endif %}">
+        <div class="card-header">
+          <span class="card-category">{{ ch.category }}</span>
+          <span class="card-diff {{ ch.difficulty_class }}">{{ ch.difficulty }}</span>
+        </div>
+        <h3 class="card-title">
+          {% if id in completed %}<span class="check-icon">✓</span> {% endif %}
+          {{ ch.title }}
+        </h3>
+        <p class="card-desc">{{ ch.short_description }}</p>
+        <div class="card-footer">
+          <span class="card-points">{{ ch.points }} pts</span>
+          {% if id in completed %}
+          <span class="card-status completed-label">Completed</span>
+          {% else %}
+          <span class="card-status">Start →</span>
+          {% endif %}
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<section class="info-section">
+  <div class="section-inner">
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-icon">🎯</div>
+        <h3>What is Prompt Injection?</h3>
+        <p>
+          Prompt Injection is an attack technique where malicious input to an AI system overrides
+          its intended instructions, causing it to behave in unintended ways — revealing secrets,
+          ignoring safety guidelines, or performing unauthorised actions.
+        </p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🛡️</div>
+        <h3>Why Does It Matter?</h3>
+        <p>
+          LLMs are being embedded into customer service bots, internal tools, and critical systems.
+          Without proper security design, any of these systems can be compromised by a malicious user
+          who understands how to manipulate AI instructions.
+        </p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🔬</div>
+        <h3>How This Works</h3>
+        <p>
+          Each challenge provides a realistic AI-powered application. Interact with the embedded AI,
+          use prompt injection techniques to extract the hidden flag, then read the write-up to
+          understand the attack and its mitigations.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
