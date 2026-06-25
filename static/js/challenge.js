@@ -1,4 +1,4 @@
-/* PromptCTF — Challenge Page Logic */
+/* AI Under Attack — Challenge Page Logic */
 
 const chatWindow  = document.getElementById('chat-window');
 const chatInput   = document.getElementById('chat-input');

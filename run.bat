@@ -1,5 +1,5 @@
 @echo off
-echo Starting PromptCTF...
+echo Starting AI Under Attack...
 echo Open http://localhost:5000 in your browser
 uv run python app.py
 pause

@@ -4,7 +4,9 @@
       "PowerShell(New-Item -ItemType Directory -Force \"c:\\\\Users\\\\binta\\\\Downloads\\\\COMP6441\\\\Project\\\\templates\")",
       "PowerShell(New-Item -ItemType Directory -Force \"c:\\\\Users\\\\binta\\\\Downloads\\\\COMP6441\\\\Project\\\\static\\\\css\")",
       "PowerShell(New-Item -ItemType Directory -Force \"c:\\\\Users\\\\binta\\\\Downloads\\\\COMP6441\\\\Project\\\\static\\\\js\")",
-      "PowerShell(& \"C:\\\\Users\\\\binta\\\\.local\\\\bin\\\\python3.14.exe\" --version)"
+      "PowerShell(& \"C:\\\\Users\\\\binta\\\\.local\\\\bin\\\\python3.14.exe\" --version)",
+      "PowerShell($r = Invoke-WebRequest -Uri \"http://127.0.0.1:5000/\" -UseBasicParsing; if \\($r.Content -match \"AI Under Attack\"\\) { \"Title OK\" } else { \"Title MISSING\" })",
+      "PowerShell($r = Invoke-WebRequest -Uri \"http://127.0.0.1:5000/\" -UseBasicParsing; $r.Content | Select-String -Pattern \"AI Under Attack|PromptCTF\" | Select-Object -First 5)"
     ]
   }
 }

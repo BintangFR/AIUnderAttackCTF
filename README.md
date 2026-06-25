@@ -1,4 +1,4 @@
-# PromptCTF — AI Security Capture The Flag Platform
+# AI Under Attack — AI Security Capture The Flag Platform
 
 A web-based CTF platform for learning **Prompt Injection** attacks against Large Language Models through hands-on, interactive challenges. Built for COMP6441 (Security Engineering & Cyber Security) at UNSW Sydney.
 
@@ -54,7 +54,7 @@ DataVault's AI document assistant has been pre-loaded with sensitive employee da
 ### Prerequisites
 
 - Python 3.9+ (the project uses [uv](https://docs.astral.sh/uv/) for dependency management)
-- An [Anthropic API key](https://console.anthropic.com/)
+- A [Gemini API key](https://aistudio.google.com/app/apikey) (free tier available)
 
 ### Installation
 
@@ -76,7 +76,7 @@ If you don't have `uv`, install it first:
 Or install dependencies directly with pip:
 
 ```bash
-pip install flask anthropic python-dotenv
+pip install flask google-genai python-dotenv
 ```
 
 ### Configuration
@@ -90,7 +90,7 @@ cp .env.example .env
 Edit `.env`:
 
 ```
-ANTHROPIC_API_KEY=sk-ant-...
+GEMINI_API_KEY=AIza...
 SECRET_KEY=some-random-string-for-flask-sessions
 ```
 
@@ -202,7 +202,7 @@ CHALLENGES = {
 }
 ```
 
-The AI model used for all challenges is `claude-haiku-4-5-20251001`. Change the `model` parameter in `app.py` (line 70) to use a different model.
+The AI model used for all challenges is `gemini-2.0-flash`. Change `_MODEL_NAME` at the top of `app.py` to use a different Gemini model (e.g. `gemini-1.5-pro`).
 
 ---
 
@@ -233,7 +233,7 @@ The AI model used for all challenges is `claude-haiku-4-5-20251001`. Change the 
 | Component | Technology |
 |-----------|-----------|
 | Backend | Python 3.14 · Flask 3 |
-| AI | Anthropic Claude API (`claude-haiku-4-5-20251001`) |
+| AI | Google Gemini API (`gemini-2.0-flash`) via `google-genai` |
 | Frontend | Vanilla HTML / CSS / JS — no framework |
 | Fonts | JetBrains Mono · Inter (Google Fonts) |
 | Dependency management | uv |
