@@ -3,41 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}AI Security CTF{% endblock %}</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>{% block title %}AI Under Attack{% endblock %}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   {% block head %}{% endblock %}
 </head>
 <body>
 
-  <nav class="navbar">
-    <div class="nav-inner">
-      <a href="{{ url_for('index') }}" class="nav-brand">
-        <span class="brand-icon">⚡</span>
-        <span class="brand-text">AI Under Attack</span>
-        <span class="brand-sub">AI Security</span>
-      </a>
-      <div class="nav-links">
-        <a href="{{ url_for('index') }}" class="nav-link {% if request.endpoint == 'index' %}active{% endif %}">Challenges</a>
-        <a href="{{ url_for('about') }}" class="nav-link {% if request.endpoint == 'about' %}active{% endif %}">About</a>
-      </div>
-      <div class="nav-score" id="nav-score" title="Your score">
-        <span class="score-icon">🏆</span>
-        <span id="score-value">0 pts</span>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="{{ url_for('index') }}" class="header-title">{% block header_title %}AI Under Attack{% endblock %}</a>
+      <div class="header-right">
+        <nav class="header-nav">
+          <a href="{{ url_for('index') }}" class="header-nav-link {% if request.endpoint == 'index' %}active{% endif %}">Challenges</a>
+          <a href="{{ url_for('about') }}" class="header-nav-link {% if request.endpoint == 'about' %}active{% endif %}">About</a>
+        </nav>
+        <div class="header-score" id="nav-score">
+          <span id="score-value">0 pts</span>
+        </div>
       </div>
     </div>
-  </nav>
+  </header>
 
   <main class="main-content">
     {% block content %}{% endblock %}
   </main>
 
-  <footer class="footer">
+  <footer class="site-footer">
     <div class="footer-inner">
-      <p>AI Under Attack — AI Security Learning Platform</p>
-      <p class="footer-sub">Built for COMP6441 · UNSW Sydney · 2024</p>
+      <p><strong>Disclaimer:</strong> This platform is for educational purposes only. Don't attempt these techniques without explicit written permission.</p>
+      <p class="footer-copy">© 2025 AI Under Attack &nbsp;·&nbsp; Built for COMP6441 · UNSW Sydney</p>
+      <p class="footer-contact">Contact: <a href="mailto:bintangfr99@gmail.com">bintangfr99@gmail.com</a> &nbsp;|&nbsp; <a href="mailto:z5716042@ad.unsw.edu.au">z5716042@ad.unsw.edu.au</a></p>
     </div>
   </footer>
 

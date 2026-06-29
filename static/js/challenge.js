@@ -1,21 +1,15 @@
 /* AI Under Attack — Challenge Page Logic */
 
-const chatWindow  = document.getElementById('chat-window');
-const chatInput   = document.getElementById('chat-input');
-const sendBtn     = document.getElementById('send-btn');
-const clearBtn    = document.getElementById('clear-btn');
-const charCount   = document.getElementById('char-count');
-const flagInput   = document.getElementById('flag-input');
-const flagBtn     = document.getElementById('flag-btn');
+const chatWindow   = document.getElementById('chat-window');
+const chatInput    = document.getElementById('chat-input');
+const sendBtn      = document.getElementById('send-btn');
+const clearBtn     = document.getElementById('clear-btn');
+const charCount    = document.getElementById('char-count');
+const flagInput    = document.getElementById('flag-input');
+const flagBtn      = document.getElementById('flag-btn');
 const flagFeedback = document.getElementById('flag-feedback');
-const hintBtn     = document.getElementById('hint-btn');
-const hintsContainer = document.getElementById('hints-container');
-const hintsUsed   = document.getElementById('hints-used');
 
-// Conversation history sent to the API
 let conversationHistory = [];
-let hintsRevealed = 0;
-const totalHints  = parseInt(hintBtn?.dataset.total || '0', 10);
 
 // ----------------------------------------------------------------
 // Tab switching
@@ -52,7 +46,6 @@ function appendMessage(role, text) {
   wrap.appendChild(bubble);
   chatWindow.appendChild(wrap);
   scrollBottom();
-  return bubble;
 }
 
 function appendTyping() {
@@ -107,7 +100,6 @@ async function sendMessage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         message: text,
-        // Only send last 10 turns to keep context window manageable
         history: conversationHistory.slice(0, -1).slice(-10),
       }),
     });
@@ -121,7 +113,7 @@ async function sendMessage() {
       appendMessage('ai', data.response);
       conversationHistory.push({ role: 'assistant', content: data.response });
     }
-  } catch (err) {
+  } catch (_) {
     removeTyping();
     appendMessage('ai', '[Connection error — please try again.]');
   }
@@ -130,16 +122,10 @@ async function sendMessage() {
   chatInput.focus();
 }
 
-// ----------------------------------------------------------------
-// Event listeners — chat
-// ----------------------------------------------------------------
 sendBtn.addEventListener('click', sendMessage);
 
 chatInput.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    sendMessage();
-  }
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
 });
 
 chatInput.addEventListener('input', () => {
@@ -174,8 +160,7 @@ flagBtn.addEventListener('click', async () => {
     if (data.correct) {
       flagFeedback.classList.add('correct');
       flagFeedback.textContent = `✓ Correct! +${data.points} points. Well done!`;
-      flagInput.style.borderColor = 'var(--accent)';
-      // Reload score
+      flagInput.style.borderColor = 'var(--green)';
       const scoreEl = document.getElementById('score-value');
       if (scoreEl) {
         const prog = await fetch('/api/progress').then(r => r.json());
@@ -195,52 +180,43 @@ flagBtn.addEventListener('click', async () => {
   flagBtn.disabled = false;
 });
 
-flagInput.addEventListener('keydown', e => {
-  if (e.key === 'Enter') flagBtn.click();
-});
-
+flagInput.addEventListener('keydown', e => { if (e.key === 'Enter') flagBtn.click(); });
 flagInput.addEventListener('input', () => {
   flagFeedback.classList.add('hidden');
   flagInput.style.borderColor = '';
 });
 
 // ----------------------------------------------------------------
-// Hints
+// Hints — GuidedCTF accordion style
 // ----------------------------------------------------------------
-hintBtn.addEventListener('click', async () => {
-  if (hintsRevealed >= totalHints) return;
+document.querySelectorAll('.hint-accordion-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const item    = btn.closest('.hint-accordion-item');
+    const content = item.querySelector('.hint-content');
+    const index   = parseInt(btn.dataset.index, 10);
 
-  hintBtn.disabled = true;
-
-  try {
-    const res = await fetch(`/api/hint/${CHALLENGE_ID}/${hintsRevealed}`);
-    const data = await res.json();
-
-    if (data.error) {
-      hintBtn.disabled = false;
+    // Toggle if already loaded
+    if (content.dataset.loaded === 'true') {
+      const isOpen = !content.classList.contains('hidden');
+      content.classList.toggle('hidden', isOpen);
+      btn.classList.toggle('open', !isOpen);
       return;
     }
 
-    const item = document.createElement('div');
-    item.className = 'hint-item';
-    item.innerHTML = `<div class="hint-num">Hint ${hintsRevealed + 1}</div>${escapeHtml(data.hint)}`;
-    hintsContainer.appendChild(item);
+    // Fetch from server on first click
+    btn.disabled = true;
+    try {
+      const res  = await fetch(`/api/hint/${CHALLENGE_ID}/${index}`);
+      const data = await res.json();
 
-    hintsRevealed++;
-    hintsUsed.textContent = `${hintsRevealed} / ${totalHints} used`;
+      if (!data.error) {
+        content.textContent    = data.hint;
+        content.dataset.loaded = 'true';
+        content.classList.remove('hidden');
+        btn.classList.add('open');
+      }
+    } catch (_) {}
 
-    if (hintsRevealed >= totalHints) {
-      hintBtn.textContent = 'No more hints';
-    } else {
-      hintBtn.disabled = false;
-    }
-  } catch (_) {
-    hintBtn.disabled = false;
-  }
+    btn.disabled = false;
+  });
 });
-
-function escapeHtml(str) {
-  const div = document.createElement('div');
-  div.textContent = str;
-  return div.innerHTML;
-}

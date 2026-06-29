@@ -15,7 +15,10 @@ _MODEL_NAME = 'gemma4'
 @app.route('/')
 def index():
     completed = session.get('completed', [])
-    return render_template('index.html', challenges=CHALLENGES, completed=completed)
+    total_points = sum(ch['points'] for ch in CHALLENGES.values())
+    total_categories = len(set(ch['category'] for ch in CHALLENGES.values()))
+    return render_template('index.html', challenges=CHALLENGES, completed=completed,
+                           total_points=total_points, total_categories=total_categories)
 
 
 @app.route('/challenge/<int:challenge_id>')
