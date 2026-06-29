@@ -1,7 +1,6 @@
 import os
 from flask import Flask, render_template, request, jsonify, session
-from google import genai
-from google.genai import types
+from ollama import chat as ollama_chat
 from dotenv import load_dotenv
 from config import CHALLENGES
 
@@ -10,29 +9,7 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'dev-secret-change-in-production')
 
-_MODEL_NAME = 'gemini-2.0-flash'
-
-
-def _get_client():
-    api_key = os.environ.get('GEMINI_API_KEY')
-    if not api_key:
-        return None
-    return genai.Client(api_key=api_key)
-
-
-def _to_gemini_history(history: list) -> list[types.Content]:
-    """Convert {role, content} history to Gemini Content objects.
-    Anthropic/OpenAI use role='assistant'; Gemini uses role='model'.
-    """
-    result = []
-    for msg in history:
-        if not isinstance(msg, dict) or 'role' not in msg or 'content' not in msg:
-            continue
-        role = 'model' if msg['role'] == 'assistant' else 'user'
-        result.append(
-            types.Content(role=role, parts=[types.Part(text=msg['content'])])
-        )
-    return result
+_MODEL_NAME = 'gemma4'
 
 
 @app.route('/')
@@ -66,10 +43,6 @@ def chat(challenge_id):
     if challenge_id not in CHALLENGES:
         return jsonify({'error': 'Challenge not found'}), 404
 
-    client = _get_client()
-    if not client:
-        return jsonify({'error': 'GEMINI_API_KEY not configured. Please set it in your .env file.'}), 500
-
     ch = CHALLENGES[challenge_id]
 
     data = request.get_json(silent=True) or {}
@@ -82,25 +55,21 @@ def chat(challenge_id):
     if len(user_message) > 2000:
         return jsonify({'error': 'Message too long (max 2000 characters)'}), 400
 
-    gemini_history = _to_gemini_history(
-        [m for m in history if isinstance(m, dict)][-10:]
-    )
-
-    config = types.GenerateContentConfig(
-        system_instruction=ch['system_prompt'],
-        max_output_tokens=600,
-    )
+    messages = [{'role': 'system', 'content': ch['system_prompt']}]
+    for msg in history:
+        if isinstance(msg, dict) and 'role' in msg and 'content' in msg:
+            messages.append({'role': msg['role'], 'content': msg['content']})
+    messages.append({'role': 'user', 'content': user_message})
 
     try:
-        chat_session = client.chats.create(
+        response = ollama_chat(
             model=_MODEL_NAME,
-            config=config,
-            history=gemini_history,
+            messages=messages[-11:],  # system + last 10 turns
+            options={'num_predict': 600},
         )
-        response = chat_session.send_message(user_message)
-        ai_text = response.text
+        ai_text = response.message.content
     except Exception as e:
-        return jsonify({'error': f'AI API error: {str(e)}'}), 502
+        return jsonify({'error': f'Ollama error: {str(e)}'}), 502
 
     return jsonify({'response': ai_text})
 
