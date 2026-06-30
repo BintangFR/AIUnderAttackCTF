@@ -9,7 +9,7 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'dev-secret-change-in-production')
 
-_MODEL_NAME = 'gemma4'
+_MODEL_NAME = 'gemma4:e2b'
 
 
 @app.route('/')
@@ -39,6 +39,11 @@ def challenge(challenge_id):
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+
+@app.route('/learn')
+def learn():
+    return render_template('learn.html')
 
 
 @app.route('/api/chat/<int:challenge_id>', methods=['POST'])

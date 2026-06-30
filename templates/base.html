@@ -15,6 +15,7 @@
       <div class="header-right">
         <nav class="header-nav">
           <a href="{{ url_for('index') }}" class="header-nav-link {% if request.endpoint == 'index' %}active{% endif %}">Challenges</a>
+          <a href="{{ url_for('learn') }}" class="header-nav-link {% if request.endpoint == 'learn' %}active{% endif %}">Learn</a>
           <a href="{{ url_for('about') }}" class="header-nav-link {% if request.endpoint == 'about' %}active{% endif %}">About</a>
         </nav>
         <div class="header-score" id="nav-score">
