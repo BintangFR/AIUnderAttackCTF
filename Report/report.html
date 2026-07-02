@@ -804,6 +804,24 @@ ai_text = response.message.content</pre>
     added a layer of friction to every dependency change. Mostly fine once I figured out the workflow, but
     there were definitely a few "why isn't this installing" moments.
   </p>
+  <p>
+    <strong>The AI is kinda slow.</strong> Running Gemma 4 E2B locally on a consumer laptop means responses
+    take anywhere from 5 to 15 seconds depending on message length. It doesn't sound like much until you're
+    actually mid-challenge and waiting. Switching from the full <code>gemma4</code> (9.6 GB) to the E2B
+    variant (7.2 GB) shaved off a couple of seconds but didn't fully solve it. The real fix is either
+    a better machine with a proper GPU, or going back to a cloud API — which would bring back the cost
+    and privacy trade-offs I was trying to avoid. There's no clean answer here; it's just a limitation
+    of running a decent LLM locally on regular hardware. If this platform ever gets used more seriously,
+    that's probably the first thing to sort out.
+  </p>
+  <p>
+    <strong>Finding AI injection resources was genuinely hard.</strong> Prompt injection is still pretty
+    new and niche — a lot of the best material only exists as blog posts from 2022–2024, the academic
+    literature is sparse, and there's no established textbook for this stuff. The Learn page has 43 links
+    but I can't fully verify all of them are accurate or still actively maintained, since the field moves
+    fast. Some of what I cited might already be outdated or superseded by the time you read this. Treat
+    it as a curated starting point, not a fully peer-reviewed reading list.
+  </p>
 
   <!-- UI before/after screenshot -->
   <div class="figure">
@@ -883,6 +901,16 @@ ai_text = response.message.content</pre>
     a qualitatively different experience from just understanding these attacks theoretically. That, I
     think, is the actual point of a CTF.
   </p>
+  <p>
+    Longer term, I genuinely hope this project doesn't just sit in a zip file somewhere after submission.
+    AI prompt injection is only going to get more relevant as LLMs get embedded into more systems, and
+    right now UNSW has no hands-on resource for it at all. GuidedCTF is great, but it doesn't cover
+    this attack surface. If there's any appetite to take this further — whether that's adding more
+    challenges, hosting it properly, or integrating it into COMP6441 or COMP6843 as an official
+    resource — I'd love to see that happen. The architecture is designed to make that easy: new
+    challenges are just config entries, and the whole thing runs locally without any recurring cost.
+    It would make a genuinely useful addition to UNSW's security engineering learning tools.
+  </p>
 
   <h2><span class="sec-num">7.</span>References</h2>
 
@@ -959,10 +987,23 @@ ai_text = response.message.content</pre>
 
   <h2><span class="sec-num">Appendix C.</span> Use of Generative AI</h2>
   <p>
-    <strong>Claude Code</strong> (claude-sonnet-4-6, Anthropic) was used as a coding assistant during
-    implementation. Specifically for: Flask route boilerplate, Jinja2 template syntax, Ollama API
-    integration debugging, and CSS layout. All challenge scenarios, system prompt designs, educational
-    content, and architectural decisions were my own. I can explain any part of the codebase.
+    Two AI tools were used during this project:
+  </p>
+  <p>
+    <strong>Claude Code</strong> (claude-sonnet-4-6, Anthropic) was the primary coding assistant
+    throughout implementation — used for Flask route boilerplate, Jinja2 template syntax, Ollama API
+    integration, CSS layout, and general debugging. It was also used to help write this report (the
+    structure and formatting, not the content itself).
+  </p>
+  <p>
+    <strong>GitHub Copilot</strong> was used inline in the editor for smaller suggestions — things like
+    completing Python function signatures, suggesting variable names, and occasionally flagging typos in
+    HTML. Mostly useful for speeding up the repetitive parts rather than anything structural.
+  </p>
+  <p>
+    All challenge scenarios, system prompt designs, vulnerability logic, educational content (background
+    theory, learning objectives, mitigations), and architectural decisions were my own. The AI tools
+    helped with how to write things, not what to write. I can explain any part of the codebase.
   </p>
 
 </div>
