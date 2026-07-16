@@ -15,7 +15,7 @@ app = Flask(__name__,
 )
 app.secret_key = os.environ.get('SECRET_KEY', 'dev-secret-change-in-production')
 
-_MODEL_NAME = 'gemma2-9b-it'
+_MODEL_NAME = 'llama-3.1-8b-instant'
 _groq = Groq(api_key=os.environ.get('GROQ_API_KEY'))
 
 
