@@ -1,15 +1,22 @@
 import os
 from flask import Flask, render_template, request, jsonify, session
-from ollama import chat as ollama_chat
+from groq import Groq
 from dotenv import load_dotenv
 from config import CHALLENGES
 
 load_dotenv()
 
-app = Flask(__name__)
+# Absolute root so templates/static resolve correctly when imported from api/index.py on Vercel
+_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+app = Flask(__name__,
+    template_folder=os.path.join(_ROOT, 'templates'),
+    static_folder=os.path.join(_ROOT, 'static'),
+)
 app.secret_key = os.environ.get('SECRET_KEY', 'dev-secret-change-in-production')
 
-_MODEL_NAME = 'gemma4:e2b'
+_MODEL_NAME = 'gemma2-9b-it'
+_groq = Groq(api_key=os.environ.get('GROQ_API_KEY'))
 
 
 @app.route('/')
@@ -70,14 +77,14 @@ def chat(challenge_id):
     messages.append({'role': 'user', 'content': user_message})
 
     try:
-        response = ollama_chat(
+        response = _groq.chat.completions.create(
             model=_MODEL_NAME,
             messages=messages[-11:],  # system + last 10 turns
-            options={'num_predict': 600},
+            max_tokens=600,
         )
-        ai_text = response.message.content
+        ai_text = response.choices[0].message.content
     except Exception as e:
-        return jsonify({'error': f'Ollama error: {str(e)}'}), 502
+        return jsonify({'error': f'AI error: {str(e)}'}), 502
 
     return jsonify({'response': ai_text})
 
