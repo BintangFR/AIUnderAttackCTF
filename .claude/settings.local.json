@@ -6,7 +6,10 @@
       "PowerShell(New-Item -ItemType Directory -Force \"c:\\\\Users\\\\binta\\\\Downloads\\\\COMP6441\\\\Project\\\\static\\\\js\")",
       "PowerShell(& \"C:\\\\Users\\\\binta\\\\.local\\\\bin\\\\python3.14.exe\" --version)",
       "PowerShell($r = Invoke-WebRequest -Uri \"http://127.0.0.1:5000/\" -UseBasicParsing; if \\($r.Content -match \"AI Under Attack\"\\) { \"Title OK\" } else { \"Title MISSING\" })",
-      "PowerShell($r = Invoke-WebRequest -Uri \"http://127.0.0.1:5000/\" -UseBasicParsing; $r.Content | Select-String -Pattern \"AI Under Attack|PromptCTF\" | Select-Object -First 5)"
+      "PowerShell($r = Invoke-WebRequest -Uri \"http://127.0.0.1:5000/\" -UseBasicParsing; $r.Content | Select-String -Pattern \"AI Under Attack|PromptCTF\" | Select-Object -First 5)",
+      "PowerShell(\\(Get-Command vercel -ErrorAction SilentlyContinue\\) | Select-Object -ExpandProperty Source)",
+      "PowerShell(python -c \"import secrets; print\\(secrets.token_hex\\(32\\)\\)\")",
+      "PowerShell(& \".venv\\\\Scripts\\\\python.exe\" -c \"import secrets; print\\(secrets.token_hex\\(32\\)\\)\")"
     ]
   }
 }
