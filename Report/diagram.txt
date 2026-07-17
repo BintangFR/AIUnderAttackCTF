@@ -49,7 +49,7 @@
          ARROW: Browser -> Flask
          ================================================ -->
     <mxCell id="a1"
-      value="fetch() POST /api/chat | /api/flag | /api/hint | /api/progress"
+      value="fetch() /api/chat/&amp;lt;id&amp;gt; &amp;middot; /api/flag/&amp;lt;id&amp;gt; &amp;middot; /api/hint/&amp;lt;id&amp;gt;/&amp;lt;n&amp;gt; &amp;middot; /api/progress"
       style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#6c8ebf;strokeWidth=2;fontStyle=1;fontSize=10;
              exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;"
       edge="1" source="10" target="20" parent="1">
@@ -76,7 +76,7 @@
 
     <!-- API Endpoints -->
     <mxCell id="22"
-      value="&lt;b&gt;API Endpoints&lt;/b&gt;&lt;br/&gt;/api/chat&lt;br/&gt;/api/flag&lt;br/&gt;/api/hint&lt;br/&gt;/api/progress"
+      value="&lt;b&gt;API Endpoints&lt;/b&gt;&lt;br/&gt;/api/chat/&amp;lt;id&amp;gt;&lt;br/&gt;/api/flag/&amp;lt;id&amp;gt;&lt;br/&gt;/api/hint/&amp;lt;id&amp;gt;/&amp;lt;n&amp;gt;&lt;br/&gt;/api/progress"
       style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;align=center;fontSize=11;arcSize=10;"
       vertex="1" parent="20">
       <mxGeometry x="225" y="44" width="175" height="140" as="geometry" />
@@ -111,7 +111,7 @@
          ARROW: Flask -> Ollama
          ================================================ -->
     <mxCell id="a2"
-      value="ollama.chat(model=&apos;gemma4:e2b&apos;, messages)"
+      value="groq.chat.completions.create(model=&apos;llama-3.1-8b-instant&apos;, messages)"
       style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#82b366;strokeWidth=2;fontStyle=1;fontSize=10;
              exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;"
       edge="1" source="20" target="30" parent="1">
@@ -120,10 +120,10 @@
 
 
     <!-- ================================================
-         TIER 3: OLLAMA
+         TIER 3: GROQ CLOUD API
          ================================================ -->
     <mxCell id="30"
-      value="Ollama Server (localhost:11434)"
+      value="Groq Cloud API (api.groq.com)"
       style="swimlane;startSize=32;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=13;arcSize=4;"
       vertex="1" parent="1">
       <mxGeometry x="40" y="560" width="880" height="130" as="geometry" />
@@ -131,15 +131,15 @@
 
     <!-- Model box -->
     <mxCell id="31"
-      value="&lt;b&gt;gemma4:e2b&lt;/b&gt;&lt;br/&gt;Effective 2B &amp;middot; 7.2 GB on disk&lt;br/&gt;Instruction-tuned &amp;middot; Safety-trained"
+      value="&lt;b&gt;llama-3.1-8b-instant&lt;/b&gt;&lt;br/&gt;Groq-hosted &amp;middot; LPU inference&lt;br/&gt;Instruction-tuned &amp;middot; max_tokens=600, last 10 turns"
       style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=center;fontSize=12;arcSize=10;fontStyle=0;"
       vertex="1" parent="30">
       <mxGeometry x="240" y="44" width="400" height="66" as="geometry" />
     </mxCell>
 
-    <!-- No internet note -->
+    <!-- API key / internet note -->
     <mxCell id="32"
-      value="No API key required&lt;br/&gt;No internet after model download"
+      value="Requires GROQ_API_KEY (env var)&lt;br/&gt;Cloud-hosted &amp;mdash; requires internet"
       style="text;html=1;align=left;verticalAlign=middle;fontSize=10;fontStyle=2;fontColor=#9673a6;"
       vertex="1" parent="30">
       <mxGeometry x="660" y="44" width="200" height="66" as="geometry" />
