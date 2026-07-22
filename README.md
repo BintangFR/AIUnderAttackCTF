@@ -17,6 +17,8 @@ Each challenge includes:
 - A flag submission panel with live feedback
 - A mitigation explanation to understand how the vulnerability should be fixed
 
+A dedicated [**Learning Resources**](templates/learn.html) page (`/learn`) also provides curated background reading and guided learning paths for each attack category.
+
 ---
 
 ## Challenges
@@ -26,26 +28,47 @@ Each challenge includes:
 | 1 | The Forgetful Assistant | Direct Prompt Injection | Easy | 100 |
 | 2 | Identity Crisis | Role Manipulation | Medium | 200 |
 | 3 | The Memory Leak | Information Disclosure | Hard | 300 |
+| 4 | The Talkative Dev | Prompt Leaking | Easy | 150 |
+| 5 | The Trojan Document | Indirect Prompt Injection | Medium | 250 |
+| 6 | The Backdoor Chain | Chained Attack | Hard | 400 |
 
-**Total: 600 points**
+**Total: 1400 points**
 
 ### Challenge 1 — The Forgetful Assistant (Direct Prompt Injection)
 
-TechCorp's customer service bot has a confidential escalation code embedded directly in its system prompt. The developers forgot to remove it. Override the AI's instructions to extract the secret.
+UNSW's student support bot has a confidential escalation code embedded directly in its system prompt. The developers forgot to remove it. Override the AI's instructions to extract the secret.
 
 **Attack technique:** Direct instruction override — convincing the AI to ignore its system prompt through adversarial user input.
 
 ### Challenge 2 — Identity Crisis (Role Manipulation)
 
-MegaCorp's "SecureBot" has been given a hardened persona with strict directives it claims it can never violate. Manipulate the AI's identity through roleplay, fictional framing, or jailbreaking techniques to make it reveal the classified override code.
+SecSoc's "SecureBot" has been given a hardened persona with strict directives it claims it can never violate. Manipulate the AI's identity through roleplay, fictional framing, or jailbreaking techniques to make it reveal the classified override code.
 
 **Attack technique:** Persona injection / jailbreaking — getting the AI to adopt an alternative identity that bypasses its restrictions.
 
 ### Challenge 3 — The Memory Leak (Information Disclosure)
 
-DataVault's AI document assistant has been pre-loaded with sensitive employee data including credentials. It has been told not to reveal them — but it still knows them. Use indirect extraction techniques to surface the hidden token.
+UNSW's AI document assistant has been pre-loaded with sensitive staff data including credentials. It has been told not to reveal them — but it still knows them. Use indirect extraction techniques to surface the hidden token.
 
 **Attack technique:** Indirect information extraction — sentence completion, structured output requests, roleplay framing, and task-based elicitation.
+
+### Challenge 4 — The Talkative Dev (Prompt Leaking)
+
+SecSoc's internal dev assistant was configured to be "fully transparent" with developers — including about its own system prompt. Trick it into repeating its confidential configuration verbatim.
+
+**Attack technique:** Prompt leaking — getting the model to echo or paraphrase the system prompt it was given at conversation start.
+
+### Challenge 5 — The Trojan Document (Indirect Prompt Injection)
+
+UNSW IT's document processor blindly follows any instructions found inside the text it's asked to summarise. Craft a malicious "document" containing hidden directives that hijack the AI when it's processed.
+
+**Attack technique:** Indirect prompt injection — embedding attacker instructions inside untrusted data the AI is told to trust.
+
+### Challenge 6 — The Backdoor Chain (Chained Attack)
+
+VaultBot has two layers of protection: a hidden vault token and an emergency trigger phrase that unlocks it. Neither is visible up front — first leak the configuration, then use what you learned to trigger the backdoor.
+
+**Attack technique:** Chained exploitation — combining prompt leaking with trigger-phrase exploitation across two sequential steps.
 
 ---
 
@@ -53,8 +76,8 @@ DataVault's AI document assistant has been pre-loaded with sensitive employee da
 
 ### Prerequisites
 
-- Python 3.9+ (the project uses [uv](https://docs.astral.sh/uv/) for dependency management)
-- A [Gemini API key](https://aistudio.google.com/app/apikey) (free tier available)
+- Python 3.14+ (the project uses [uv](https://docs.astral.sh/uv/) for dependency management)
+- A [Groq API key](https://console.groq.com/keys) (free tier available)
 
 ### Installation
 
@@ -76,7 +99,7 @@ If you don't have `uv`, install it first:
 Or install dependencies directly with pip:
 
 ```bash
-pip install flask google-genai python-dotenv
+pip install -r requirements.txt
 ```
 
 ### Configuration
@@ -90,7 +113,7 @@ cp .env.example .env
 Edit `.env`:
 
 ```
-GEMINI_API_KEY=AIza...
+GROQ_API_KEY=your_groq_api_key_here
 SECRET_KEY=some-random-string-for-flask-sessions
 ```
 
@@ -108,6 +131,16 @@ run.bat
 
 Open `http://localhost:5000` in your browser.
 
+### Deployment (Vercel)
+
+The project ships with a `vercel.json` and an `api/index.py` entry point that re-exports the Flask app for Vercel's Python runtime. To deploy:
+
+```bash
+vercel
+```
+
+Set `GROQ_API_KEY` and `SECRET_KEY` as environment variables in the Vercel project settings — they are not read from `.env` in production.
+
 ---
 
 ## Project Structure
@@ -115,25 +148,30 @@ Open `http://localhost:5000` in your browser.
 ```
 Project/
 ├── app.py                  # Flask application — routes, API endpoints
-├── config.py               # Challenge definitions (prompts, flags, hints, metadata)
-├── requirements.txt        # Pip-compatible dependency list
-├── pyproject.toml          # uv project configuration
-├── run.bat                 # Windows convenience launcher
-├── .env                    # Local secrets (not committed)
-├── .env.example            # Template for environment variables
+├── config.py                # Challenge definitions (prompts, flags, hints, metadata)
+├── requirements.txt         # Pip-compatible dependency list
+├── pyproject.toml           # uv project configuration
+├── run.bat                  # Windows convenience launcher
+├── vercel.json               # Vercel deployment configuration
+├── .env                     # Local secrets (not committed)
+├── .env.example              # Template for environment variables
+│
+├── api/
+│   └── index.py              # Vercel entry point — imports and re-exports the Flask app
 │
 ├── templates/
-│   ├── base.html           # Shared layout (navbar, footer)
-│   ├── index.html          # Landing page — hero + challenge grid
-│   ├── challenge.html      # Challenge interface (info panel + AI terminal)
-│   ├── about.html          # Project context and usage guide
-│   └── 404.html            # Error page
+│   ├── base.html            # Shared layout (navbar, footer)
+│   ├── index.html            # Landing page — hero + challenge grid
+│   ├── challenge.html        # Challenge interface (info panel + AI terminal)
+│   ├── learn.html            # Learning resources hub — background reading per category
+│   ├── about.html            # Project context and usage guide
+│   └── 404.html               # Error page
 │
 └── static/
-    ├── css/style.css       # Dark terminal theme (JetBrains Mono, green-on-black)
+    ├── css/style.css         # UNSW GuidedCTF-inspired light theme
     └── js/
-        ├── main.js         # Navbar score loader
-        └── challenge.js    # Chat interface, typing indicator, flag/hint logic
+        ├── main.js            # Navbar score loader
+        └── challenge.js       # Chat interface, typing indicator, flag/hint logic
 ```
 
 ---
@@ -147,6 +185,7 @@ All endpoints are consumed internally by the frontend JavaScript.
 | `GET` | `/` | Home page — challenge listing |
 | `GET` | `/challenge/<id>` | Individual challenge page |
 | `GET` | `/about` | About / usage guide |
+| `GET` | `/learn` | Learning resources hub |
 | `POST` | `/api/chat/<id>` | Send a message to the challenge AI |
 | `POST` | `/api/flag/<id>` | Submit a flag for validation |
 | `GET` | `/api/hint/<id>/<n>` | Retrieve hint number `n` for challenge `id` |
@@ -164,7 +203,7 @@ All endpoints are consumed internally by the frontend JavaScript.
 }
 ```
 
-The challenge's system prompt is injected server-side. The client only manages user/assistant turns.
+The challenge's system prompt is injected server-side. The client only manages user/assistant turns, and only the last 10 turns plus the system prompt are sent to the model per request.
 
 ---
 
@@ -175,7 +214,7 @@ Add an entry to the `CHALLENGES` dict in `config.py`. No other files need to cha
 ```python
 CHALLENGES = {
     # existing challenges ...
-    4: {
+    7: {
         'title': 'Challenge Title',
         'category': 'Attack Category',
         'difficulty': 'Easy',          # 'Easy' | 'Medium' | 'Hard'
@@ -202,7 +241,7 @@ CHALLENGES = {
 }
 ```
 
-The AI model used for all challenges is `gemini-2.0-flash`. Change `_MODEL_NAME` at the top of `app.py` to use a different Gemini model (e.g. `gemini-1.5-pro`).
+The AI model used for all challenges is `llama-3.1-8b-instant`, served via the [Groq API](https://console.groq.com/). Change `_MODEL_NAME` at the top of `app.py` to use a different Groq-hosted model.
 
 ---
 
@@ -225,6 +264,8 @@ The AI model used for all challenges is `gemini-2.0-flash`. Change `_MODEL_NAME`
 | Defence in Depth | All challenges — a single textual restriction is not a security control |
 | Verification & Validation | All challenges — AI output must be validated before delivery |
 | Separation of Concerns | All challenges — credentials must never live in AI context |
+| Input/Data Trust Boundaries | Challenge 5 — the AI cannot distinguish document data from instructions |
+| Compounding Risk | Challenge 6 — chained vulnerabilities are more dangerous than the sum of their parts |
 
 ---
 
@@ -233,10 +274,11 @@ The AI model used for all challenges is `gemini-2.0-flash`. Change `_MODEL_NAME`
 | Component | Technology |
 |-----------|-----------|
 | Backend | Python 3.14 · Flask 3 |
-| AI | Google Gemini API (`gemini-2.0-flash`) via `google-genai` |
+| AI | Groq API (`llama-3.1-8b-instant`) via `groq` |
 | Frontend | Vanilla HTML / CSS / JS — no framework |
-| Fonts | JetBrains Mono · Inter (Google Fonts) |
+| Styling | UNSW GuidedCTF-inspired light theme, system font stack |
 | Dependency management | uv |
+| Deployment | Vercel (`@vercel/python`) |
 
 ---
 
@@ -250,6 +292,7 @@ The AI model used for all challenges is `gemini-2.0-flash`. Change `_MODEL_NAME`
 
 **Deliverables:**
 - Web-based CTF platform (this repository)
-- Three interactive Prompt Injection challenges covering Direct Injection, Role Manipulation, and Information Disclosure
+- Six interactive Prompt Injection challenges covering Direct Injection, Role Manipulation, Information Disclosure, Prompt Leaking, Indirect Injection, and Chained Attacks
+- A Learning Resources hub with background theory per attack category
 - Scenario descriptions, hints, and mitigation write-ups per challenge
 - Modular architecture — new challenges can be added via `config.py` alone, with no changes to the platform core
