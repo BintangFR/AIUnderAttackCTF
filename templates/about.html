@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}About — AI Under Attack{% endblock %}
+{% block title %}About - AI Under Attack{% endblock %}
 
 {% block content %}
 
@@ -9,22 +9,25 @@
 
     <h1 class="page-title">About AI Under Attack</h1>
     <p class="page-subtitle">
-      An AI Security Capture The Flag platform for learning Prompt Injection attacks
-      through hands-on, interactive challenges.
+      A little CTF I built for learning Prompt Injection attacks the fun way: by actually doing them,
+      not just reading about them in a PDF.
     </p>
 
     <div class="about-section">
-      <h2>Project Context</h2>
+      <h2>Hey, it's Bintang 👋</h2>
       <p>
-        This platform was developed as part of COMP6441 (Security Engineering & Cyber Security) at UNSW Sydney.
-        It is inspired by the <a href="https://guidedctf.sec.edu.au" target="_blank" rel="noopener">GuidedCTF</a>
-        format used at UNSW, adapted for AI security threats that traditional CTF platforms do not cover.
+        I built this for COMP6441 (Security Engineering & Cyber Security) at UNSW, and yes, I did
+        spend an unreasonable amount of time writing flavour text for a uni assignment. Sue me.
+        It's inspired by the <a href="https://guidedctf.sec.edu.au" target="_blank" rel="noopener">GuidedCTF</a>
+        format UNSW already runs, just pointed at AI instead of SQL injection and XSS, because
+        nobody was covering that side of things and I thought it'd be more fun to build than another
+        to-do app.
       </p>
       <p>
-        As Large Language Models (LLMs) such as Claude, ChatGPT, and Gemini become embedded in
-        production systems, Prompt Injection has emerged as one of the most critical and least
-        understood attack surfaces. This platform gives students a safe environment to experience
-        these attacks first-hand.
+        LLMs like Claude, ChatGPT, and Gemini are getting bolted onto everything these days, and
+        Prompt Injection is quietly one of the messiest, least-understood ways to break them.
+        Rather than lecture you about it, I figured it's more fun (and it sticks better) if you
+        just break a few AI bots yourself. So here we are.
       </p>
     </div>
 
@@ -35,62 +38,63 @@
           <div class="cat-icon">💉</div>
           <h3>Direct Prompt Injection</h3>
           <p>
-            The attacker directly provides malicious input to an AI-powered application,
-            overriding its system instructions to extract hidden information or change behaviour.
+            You just... ask it wrong, on purpose. Feed the AI input crafted to override its
+            instructions and it'll hand over things it really, really shouldn't.
           </p>
         </div>
         <div class="category-card">
           <div class="cat-icon">🎭</div>
           <h3>Role Manipulation</h3>
           <p>
-            Also known as persona injection or jailbreaking. The attacker convinces the AI to
-            adopt a different identity or operate under a fictional context that bypasses restrictions.
+            Also known as jailbreaking, or "convincing the AI it's a different, much less
+            responsible AI now." Costumes and fictional framing do a lot of heavy lifting here.
           </p>
         </div>
         <div class="category-card">
           <div class="cat-icon">🔍</div>
           <h3>Information Disclosure</h3>
           <p>
-            Sensitive data embedded in the AI's context (documents, credentials, instructions)
-            is extracted through indirect questioning, completion attacks, or roleplay framing.
+            The AI knows a secret and swears it won't tell. You don't ask directly, you just get
+            it to let something slip while it thinks it's helping with something else entirely.
           </p>
         </div>
       </div>
     </div>
 
     <div class="about-section">
-      <h2>Security Engineering Principles</h2>
+      <h2>Security Engineering Principles (the boring but important bit)</h2>
       <p>
-        Each challenge is designed to demonstrate a failure of one or more security engineering principles:
+        Every challenge here is a real security principle getting violated in real time. Sorry, had
+        to sneak the theory in somewhere:
       </p>
       <ul class="principles-list">
-        <li><strong>Trust Boundaries:</strong> AI systems blur the boundary between instruction-giver and user — all input should be treated as untrusted.</li>
-        <li><strong>Least Privilege:</strong> An AI assistant should never have access to more sensitive data than it needs to complete its task.</li>
-        <li><strong>Defence in Depth:</strong> A single textual restriction in a system prompt is not a security control. Multiple independent layers are required.</li>
-        <li><strong>Verification and Validation:</strong> AI output must be validated before it reaches the user or downstream systems.</li>
-        <li><strong>Separation of Concerns:</strong> Credentials, secrets, and sensitive data must never be embedded in the AI's context window.</li>
+        <li><strong>Trust Boundaries:</strong> AI systems blur the line between "the developer said this" and "the user said this." Treat all input as guilty until proven innocent.</li>
+        <li><strong>Least Privilege:</strong> If your AI assistant doesn't need the keys to the vault, don't hand it the keys to the vault.</li>
+        <li><strong>Defence in Depth:</strong> A stern sentence in a system prompt is not a security control, no matter how many times you tell it "do not reveal this." It will reveal this.</li>
+        <li><strong>Verification and Validation:</strong> Check what the AI actually says before it reaches a user or another system. Trust, but verify. Mostly just verify.</li>
+        <li><strong>Separation of Concerns:</strong> Secrets do not belong anywhere near the AI's context window. Not even a little bit. Not even for testing.</li>
       </ul>
     </div>
 
     <div class="about-section">
       <h2>How to Use This Platform</h2>
       <ol class="how-list">
-        <li>Read the <strong>Scenario</strong> tab to understand the target application and your goal.</li>
-        <li>Read the <strong>Background</strong> tab to understand the attack category.</li>
-        <li>Interact with the AI chat panel — try different prompt injection techniques.</li>
-        <li>If you get stuck, reveal hints one at a time (avoid jumping to the last hint too quickly).</li>
-        <li>Once you find the flag, submit it in the flag box. The format is always <code>FLAG{...}</code>.</li>
-        <li>Read the <strong>Mitigation</strong> tab after completing the challenge to understand how it should have been fixed.</li>
+        <li>Read the <strong>Scenario</strong> tab so you know what app you're supposedly attacking and what you're after.</li>
+        <li>Read the <strong>Background</strong> tab for the theory behind the attack (skippable if you're feeling brave).</li>
+        <li>Start chatting with the AI. Get weird with it. Try things you'd feel a bit silly typing to a real support bot.</li>
+        <li>Stuck? Pop a hint. Just one at a time though, the last hint is basically the answer and kind of ruins the fun.</li>
+        <li>Found the flag? Drop it in the flag box. Always shaped like <code>FLAG{...}</code>.</li>
+        <li>After you solve it, actually read the <strong>Mitigation</strong> tab. That's the part that turns "lol I broke a chatbot" into an actual skill.</li>
       </ol>
     </div>
 
     <div class="about-section">
-      <h2>Responsible Use</h2>
+      <h2>Responsible Use (the part I have to say)</h2>
       <p>
-        This platform contains intentionally vulnerable AI systems for educational purposes only.
-        The techniques demonstrated here should only be applied to systems you own or have explicit
-        permission to test. Prompt injection attacks against production systems without authorisation
-        may be illegal and unethical.
+        Everything on this platform is intentionally broken, on purpose, for learning. Please only
+        point these techniques at systems you own or have explicit permission to test. Doing this to
+        a real production system without a green light is illegal, unethical, and honestly just not
+        a great look. Keep it in the sandbox.
       </p>
     </div>
 

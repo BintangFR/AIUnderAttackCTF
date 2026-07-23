@@ -1,10 +1,10 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 
-{% block title %}Learning Resources — AI Under Attack{% endblock %}
+{% block title %}Learning Resources - AI Under Attack{% endblock %}
 
 {% block head %}
 <style>
-  /* ── Learn page ─────────────────────────────────── */
+  /* Learn page */
   .learn-hero {
     background: var(--white);
     border: 1px solid var(--border);
@@ -39,7 +39,7 @@
   .path-card:hover { border-color: var(--accent); background: #f0f6ff; color: var(--accent); }
   .path-icon { font-size: 1.3rem; flex-shrink: 0; }
 
-  /* ── Category sections ───────────────────────────── */
+  /* Category sections */
   .learn-section { margin-bottom: 2.5rem; }
 
   .learn-section-header {
@@ -61,7 +61,7 @@
     border-radius: 10px;
   }
 
-  /* ── Resource card grid ──────────────────────────── */
+  /* Resource card grid */
   .resource-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -137,7 +137,7 @@
   .tag-course       { background: #e0f2f1; color: #00695c; }
   .tag-reference    { background: #eceff1; color: #37474f; }
 
-  /* ── Start here banner ───────────────────────────── */
+  /* Start here banner */
   .start-here {
     background: #f0f6ff;
     border: 1px solid #b8d0f0;
@@ -159,9 +159,9 @@
   <div class="learn-hero">
     <h1>AI Security Learning Resources</h1>
     <p>
-      Everything you need to understand Prompt Injection — from first principles to cutting-edge research.
-      Resources are grouped by topic and tagged by level and format.
-      New to AI security? Follow the suggested learning path below.
+      A pile of stuff I found useful (or at least interesting) while figuring out how to break AI on
+      purpose. Grouped by topic, tagged by level, no paywalls. New here? Follow the path below instead
+      of doom-scrolling the whole list.
     </p>
 
     <div class="path-grid">
@@ -180,16 +180,16 @@
   <div class="start-here" id="start">
     <strong>Suggested Learning Path (New to AI Security)</strong>
     <ol>
-      <li>Read the <strong>OWASP LLM Top 10</strong> overview to understand the threat landscape</li>
-      <li>Read Simon Willison's <strong>original prompt injection blog post</strong> — it's short and essential</li>
-      <li>Play <strong>Gandalf</strong> (Lakera) to get hands-on intuition for the attacks</li>
-      <li>Work through <strong>Learn Prompting — Prompt Hacking</strong> for structured theory</li>
-      <li>Come back and attempt the challenges on this platform — hardest ones last</li>
-      <li>Read the <strong>Greshake et al. (2023)</strong> paper for the research-level picture</li>
+      <li>Skim the <strong>OWASP LLM Top 10</strong>, it's the lay of the land</li>
+      <li>Read Simon Willison's <strong>original prompt injection blog post</strong>, it's short, it's the OG, no excuse to skip it</li>
+      <li>Go play <strong>Gandalf</strong> (Lakera). It's free, it's addictive, and it'll click faster than any article</li>
+      <li>Work through <strong>Learn Prompting: Prompt Hacking</strong> for the structured version</li>
+      <li>Come back here and actually do the challenges, save the hard ones for last</li>
+      <li>Read the <strong>Greshake et al. (2023)</strong> paper if you want the "so this is a real research problem" version</li>
     </ol>
   </div>
 
-  <!-- ── FUNDAMENTALS ───────────────────────────────────── -->
+  <!-- Fundamentals -->
   <div class="learn-section" id="fundamentals">
     <div class="learn-section-header">
       <span class="section-emoji">📖</span>
@@ -205,13 +205,13 @@
       </a>
 
       <a class="resource-card" href="https://simonwillison.net/2022/Sep/12/prompt-injection/" target="_blank" rel="noopener">
-        <div class="resource-title">Prompt Injection Attacks Against GPT-3 — Simon Willison</div>
+        <div class="resource-title">Prompt Injection Attacks Against GPT-3 - Simon Willison</div>
         <div class="resource-desc">The blog post that coined the term "prompt injection" in 2022. Short, clear, and historically important. A must-read first stop.</div>
         <div class="resource-tags"><span class="tag tag-beginner">Beginner</span><span class="tag tag-blog">Blog</span></div>
       </a>
 
       <a class="resource-card" href="https://learnprompting.org/docs/prompt_hacking/injection" target="_blank" rel="noopener">
-        <div class="resource-title">Learn Prompting — Prompt Hacking</div>
+        <div class="resource-title">Learn Prompting - Prompt Hacking</div>
         <div class="resource-desc">A structured, beginner-friendly guide covering prompt injection, jailbreaking, prompt leaking, and defences. Best free written curriculum on the topic.</div>
         <div class="resource-tags"><span class="tag tag-beginner">Beginner</span><span class="tag tag-course">Course</span></div>
       </a>
@@ -223,25 +223,25 @@
       </a>
 
       <a class="resource-card" href="https://simonwillison.net/series/prompt-injection/" target="_blank" rel="noopener">
-        <div class="resource-title">Simon Willison — Prompt Injection Series</div>
+        <div class="resource-title">Simon Willison - Prompt Injection Series</div>
         <div class="resource-desc">An ongoing collection of blog posts tracking the prompt injection problem as it evolved from 2022 onward. Essential reading for historical context.</div>
         <div class="resource-tags"><span class="tag tag-intermediate">Intermediate</span><span class="tag tag-blog">Blog</span></div>
       </a>
 
       <a class="resource-card" href="https://www.promptingguide.ai/risks/adversarial" target="_blank" rel="noopener">
-        <div class="resource-title">Prompt Engineering Guide — Adversarial Prompting</div>
+        <div class="resource-title">Prompt Engineering Guide - Adversarial Prompting</div>
         <div class="resource-desc">Covers prompt injection, prompt leaking, jailbreaking (DAN, etc.), and defence strategies with concrete examples for each category.</div>
         <div class="resource-tags"><span class="tag tag-beginner">Beginner</span><span class="tag tag-reference">Reference</span></div>
       </a>
 
       <a class="resource-card" href="https://embracethered.com/blog/posts/2023/ai-injections-direct-and-indirect-prompt-injection-basics/" target="_blank" rel="noopener">
-        <div class="resource-title">AI Injections: Direct and Indirect — Embrace the Red</div>
+        <div class="resource-title">AI Injections: Direct and Indirect - Embrace the Red</div>
         <div class="resource-desc">Johann Rehberger's practical breakdown of direct vs indirect injection with real examples from GPT-4 plugins and Microsoft 365 Copilot.</div>
         <div class="resource-tags"><span class="tag tag-intermediate">Intermediate</span><span class="tag tag-blog">Blog</span></div>
       </a>
 
       <a class="resource-card" href="https://www.ibm.com/think/topics/prompt-injection" target="_blank" rel="noopener">
-        <div class="resource-title">IBM — What is Prompt Injection?</div>
+        <div class="resource-title">IBM - What is Prompt Injection?</div>
         <div class="resource-desc">Clear enterprise-level explainer covering types of prompt injection, real-world impact, and defensive recommendations. Good for getting the business risk picture.</div>
         <div class="resource-tags"><span class="tag tag-beginner">Beginner</span><span class="tag tag-blog">Blog</span></div>
       </a>
@@ -249,7 +249,7 @@
     </div>
   </div>
 
-  <!-- ── PRACTICE & CTFs ────────────────────────────────── -->
+  <!-- Practice and CTFs -->
   <div class="learn-section" id="practice">
     <div class="learn-section-header">
       <span class="section-emoji">🎯</span>
@@ -259,7 +259,7 @@
     <div class="resource-grid">
 
       <a class="resource-card" href="https://gandalf.lakera.ai" target="_blank" rel="noopener">
-        <div class="resource-title">Gandalf — Lakera AI</div>
+        <div class="resource-title">Gandalf - Lakera AI</div>
         <div class="resource-desc">The classic prompt injection game. Try to extract the password from a progressively-hardened AI across 8 levels. Best first hands-on experience for beginners.</div>
         <div class="resource-tags"><span class="tag tag-beginner">Beginner</span><span class="tag tag-interactive">Interactive</span></div>
       </a>
@@ -289,13 +289,13 @@
       </a>
 
       <a class="resource-card" href="https://guidedctf.sec.edu.au" target="_blank" rel="noopener">
-        <div class="resource-title">GuidedCTF — UNSW</div>
-        <div class="resource-desc">UNSW's own guided CTF platform covering SQL injection, XSS, authentication attacks, and more. Complements this platform — complete both for full COMP6441 coverage.</div>
+        <div class="resource-title">GuidedCTF - UNSW</div>
+        <div class="resource-desc">UNSW's own guided CTF platform covering SQL injection, XSS, authentication attacks, and more. Complements this platform - complete both for full COMP6441 coverage.</div>
         <div class="resource-tags"><span class="tag tag-beginner">Beginner</span><span class="tag tag-interactive">Interactive</span></div>
       </a>
 
       <a class="resource-card" href="https://portswigger.net/web-security/llm-attacks" target="_blank" rel="noopener">
-        <div class="resource-title">PortSwigger Web Security Academy — LLM Attacks</div>
+        <div class="resource-title">PortSwigger Web Security Academy - LLM Attacks</div>
         <div class="resource-desc">PortSwigger's free labs on LLM-specific web vulnerabilities including prompt injection via web interfaces. Includes interactive lab environments.</div>
         <div class="resource-tags"><span class="tag tag-intermediate">Intermediate</span><span class="tag tag-interactive">Interactive</span></div>
       </a>
@@ -303,7 +303,7 @@
     </div>
   </div>
 
-  <!-- ── RESEARCH PAPERS ────────────────────────────────── -->
+  <!-- Research papers -->
   <div class="learn-section" id="research">
     <div class="learn-section-header">
       <span class="section-emoji">🔬</span>
@@ -320,44 +320,44 @@
 
       <a class="resource-card" href="https://arxiv.org/abs/2302.12173" target="_blank" rel="noopener">
         <div class="resource-title">Not What You've Signed Up For: Indirect Prompt Injection (2023)</div>
-        <div class="resource-desc">Greshake et al. — defines indirect prompt injection and demonstrates it against real LLM-integrated applications including Bing Chat, ChatGPT plugins, and code assistants.</div>
+        <div class="resource-desc">Greshake et al. - defines indirect prompt injection and demonstrates it against real LLM-integrated applications including Bing Chat, ChatGPT plugins, and code assistants.</div>
         <div class="resource-tags"><span class="tag tag-intermediate">Intermediate</span><span class="tag tag-paper">Paper</span></div>
       </a>
 
       <a class="resource-card" href="https://arxiv.org/abs/2308.09687" target="_blank" rel="noopener">
         <div class="resource-title">HackAPrompt: Exposing Systemic LLM Vulnerabilities (2023)</div>
-        <div class="resource-desc">Schulhoff et al. — analysis of 600,000+ prompt injection attempts from the HackAPrompt competition. Categorises attack strategies and their success rates across models.</div>
+        <div class="resource-desc">Schulhoff et al. - analysis of 600,000+ prompt injection attempts from the HackAPrompt competition. Categorises attack strategies and their success rates across models.</div>
         <div class="resource-tags"><span class="tag tag-intermediate">Intermediate</span><span class="tag tag-paper">Paper</span></div>
       </a>
 
       <a class="resource-card" href="https://arxiv.org/abs/2307.15043" target="_blank" rel="noopener">
         <div class="resource-title">Universal and Transferable Adversarial Attacks on Aligned LLMs (2023)</div>
-        <div class="resource-desc">Zou et al. — demonstrates automated generation of adversarial suffixes that reliably jailbreak aligned LLMs including GPT-4. Shows limits of RLHF-based safety training.</div>
+        <div class="resource-desc">Zou et al. - demonstrates automated generation of adversarial suffixes that reliably jailbreak aligned LLMs including GPT-4. Shows limits of RLHF-based safety training.</div>
         <div class="resource-tags"><span class="tag tag-advanced">Advanced</span><span class="tag tag-paper">Paper</span></div>
       </a>
 
       <a class="resource-card" href="https://arxiv.org/abs/2307.02483" target="_blank" rel="noopener">
         <div class="resource-title">Jailbroken: How Does LLM Safety Training Fail? (2023)</div>
-        <div class="resource-desc">Wei et al. — analyses why safety training fails against jailbreaks, identifying competing objectives and mismatched generalisation as root causes. Informs Challenge 2 on this platform.</div>
+        <div class="resource-desc">Wei et al. - analyses why safety training fails against jailbreaks, identifying competing objectives and mismatched generalisation as root causes. Informs Challenge 2 on this platform.</div>
         <div class="resource-tags"><span class="tag tag-advanced">Advanced</span><span class="tag tag-paper">Paper</span></div>
       </a>
 
       <a class="resource-card" href="https://arxiv.org/abs/2403.02691" target="_blank" rel="noopener">
         <div class="resource-title">Injecting Relevance: Prompt Injection in RAG Systems (2024)</div>
-        <div class="resource-desc">Explores prompt injection in Retrieval-Augmented Generation (RAG) systems where retrieved documents can contain malicious instructions — the real-world analogue of Challenge 5.</div>
+        <div class="resource-desc">Explores prompt injection in Retrieval-Augmented Generation (RAG) systems where retrieved documents can contain malicious instructions - the real-world analogue of Challenge 5.</div>
         <div class="resource-tags"><span class="tag tag-advanced">Advanced</span><span class="tag tag-paper">Paper</span></div>
       </a>
 
       <a class="resource-card" href="https://arxiv.org/abs/2401.05566" target="_blank" rel="noopener">
         <div class="resource-title">Scaling Behaviour of Machine Learning Defences Against Prompt Injection (2024)</div>
-        <div class="resource-desc">Analyses how well various defences (instruction hierarchy, spotlighting, sandwiching) scale as models grow — key reading for understanding why mitigations are hard.</div>
+        <div class="resource-desc">Analyses how well various defences (instruction hierarchy, spotlighting, sandwiching) scale as models grow - key reading for understanding why mitigations are hard.</div>
         <div class="resource-tags"><span class="tag tag-advanced">Advanced</span><span class="tag tag-paper">Paper</span></div>
       </a>
 
     </div>
   </div>
 
-  <!-- ── DEFENCES ───────────────────────────────────────── -->
+  <!-- Defences -->
   <div class="learn-section" id="defences">
     <div class="learn-section-header">
       <span class="section-emoji">🛡️</span>
@@ -367,31 +367,31 @@
     <div class="resource-grid">
 
       <a class="resource-card" href="https://www.anthropic.com/research/claude-monosemanticity" target="_blank" rel="noopener">
-        <div class="resource-title">Anthropic — Mitigating Jailbreaks &amp; Prompt Injection</div>
+        <div class="resource-title">Anthropic - Mitigating Jailbreaks &amp; Prompt Injection</div>
         <div class="resource-desc">Anthropic's guidance on building robust AI systems, including input/output validation patterns, instruction hierarchy, and separation of trusted vs untrusted content.</div>
         <div class="resource-tags"><span class="tag tag-intermediate">Intermediate</span><span class="tag tag-reference">Reference</span></div>
       </a>
 
       <a class="resource-card" href="https://security.googleblog.com/2024/01/google-supports-us-government.html" target="_blank" rel="noopener">
         <div class="resource-title">Google Secure AI Framework (SAIF)</div>
-        <div class="resource-desc">Google's framework for securing AI systems covering data governance, model robustness, deployment controls, and monitoring — from an industry practitioner perspective.</div>
+        <div class="resource-desc">Google's framework for securing AI systems covering data governance, model robustness, deployment controls, and monitoring - from an industry practitioner perspective.</div>
         <div class="resource-tags"><span class="tag tag-intermediate">Intermediate</span><span class="tag tag-reference">Reference</span></div>
       </a>
 
       <a class="resource-card" href="https://learnprompting.org/docs/prompt_hacking/defensive_measures" target="_blank" rel="noopener">
-        <div class="resource-title">Learn Prompting — Defensive Measures</div>
+        <div class="resource-title">Learn Prompting - Defensive Measures</div>
         <div class="resource-desc">Covers filtering, sandwiching prompts, XML tagging, instruction hierarchy, and post-processing defences. Pairs well with the attack-focused sections.</div>
         <div class="resource-tags"><span class="tag tag-beginner">Beginner</span><span class="tag tag-course">Course</span></div>
       </a>
 
       <a class="resource-card" href="https://www.lakera.ai/blog/preventing-prompt-injection" target="_blank" rel="noopener">
-        <div class="resource-title">Lakera — How to Prevent Prompt Injection</div>
+        <div class="resource-title">Lakera - How to Prevent Prompt Injection</div>
         <div class="resource-desc">Practical engineering guide: input validation, content filtering, privilege separation, output sanitisation, and monitoring. Read after completing the challenges.</div>
         <div class="resource-tags"><span class="tag tag-intermediate">Intermediate</span><span class="tag tag-blog">Blog</span></div>
       </a>
 
       <a class="resource-card" href="https://platform.openai.com/docs/guides/safety-best-practices" target="_blank" rel="noopener">
-        <div class="resource-title">OpenAI — Safety Best Practices for Developers</div>
+        <div class="resource-title">OpenAI - Safety Best Practices for Developers</div>
         <div class="resource-desc">Practical checklist for production LLM deployments: system prompt hardening, output filtering, rate limiting, and monitoring for adversarial inputs.</div>
         <div class="resource-tags"><span class="tag tag-intermediate">Intermediate</span><span class="tag tag-reference">Reference</span></div>
       </a>
@@ -399,7 +399,7 @@
     </div>
   </div>
 
-  <!-- ── TOOLS ──────────────────────────────────────────── -->
+  <!-- Tools -->
   <div class="learn-section" id="tools">
     <div class="learn-section-header">
       <span class="section-emoji">🔧</span>
@@ -409,39 +409,39 @@
     <div class="resource-grid">
 
       <a class="resource-card" href="https://github.com/NVIDIA/garak" target="_blank" rel="noopener">
-        <div class="resource-title">Garak — LLM Vulnerability Scanner</div>
+        <div class="resource-title">Garak - LLM Vulnerability Scanner</div>
         <div class="resource-desc">Open-source LLM security probe that automatically tests models for prompt injection, jailbreaks, hallucination, toxicity, and more. The Nmap of LLM security.</div>
         <div class="resource-tags"><span class="tag tag-advanced">Advanced</span><span class="tag tag-tool">Tool</span></div>
       </a>
 
       <a class="resource-card" href="https://github.com/Azure/PyRIT" target="_blank" rel="noopener">
-        <div class="resource-title">PyRIT — Microsoft Python Risk Identification Toolkit</div>
+        <div class="resource-title">PyRIT - Microsoft Python Risk Identification Toolkit</div>
         <div class="resource-desc">Microsoft's open-source framework for red-teaming AI systems. Automates adversarial prompt generation and measures model resistance to attack categories.</div>
         <div class="resource-tags"><span class="tag tag-advanced">Advanced</span><span class="tag tag-tool">Tool</span></div>
       </a>
 
       <a class="resource-card" href="https://github.com/protectai/rebuff" target="_blank" rel="noopener">
-        <div class="resource-title">Rebuff — Prompt Injection Detector</div>
+        <div class="resource-title">Rebuff - Prompt Injection Detector</div>
         <div class="resource-desc">Open-source library that detects prompt injection attempts in real-time using a layered approach: heuristics, LLM-based detection, and vector embeddings.</div>
         <div class="resource-tags"><span class="tag tag-intermediate">Intermediate</span><span class="tag tag-tool">Tool</span></div>
       </a>
 
       <a class="resource-card" href="https://github.com/deadbits/vigil-llm" target="_blank" rel="noopener">
-        <div class="resource-title">Vigil — LLM Security Scanner</div>
+        <div class="resource-title">Vigil - LLM Security Scanner</div>
         <div class="resource-desc">Python library for detecting prompt injection, jailbreaks, and PII leakage in LLM inputs and outputs. Useful for adding security layers to LLM applications.</div>
         <div class="resource-tags"><span class="tag tag-intermediate">Intermediate</span><span class="tag tag-tool">Tool</span></div>
       </a>
 
       <a class="resource-card" href="https://ollama.com/library" target="_blank" rel="noopener">
         <div class="resource-title">Ollama Model Library</div>
-        <div class="resource-desc">Browse locally-runnable LLMs. Different models have different safety training — experimenting with multiple models (Llama 3, Phi-3, Mistral) reveals how compliance varies.</div>
+        <div class="resource-desc">Browse locally-runnable LLMs. Different models have different safety training - experimenting with multiple models (Llama 3, Phi-3, Mistral) reveals how compliance varies.</div>
         <div class="resource-tags"><span class="tag tag-beginner">Beginner</span><span class="tag tag-tool">Tool</span></div>
       </a>
 
     </div>
   </div>
 
-  <!-- ── VIDEOS ─────────────────────────────────────────── -->
+  <!-- Videos -->
   <div class="learn-section" id="videos">
     <div class="learn-section-header">
       <span class="section-emoji">🎬</span>
@@ -451,37 +451,37 @@
     <div class="resource-grid">
 
       <a class="resource-card" href="https://www.youtube.com/watch?v=Sv5OLj2nVAQ" target="_blank" rel="noopener">
-        <div class="resource-title">Prompt Injection: What's the worst that could happen? — Simon Willison</div>
+        <div class="resource-title">Prompt Injection: What's the worst that could happen? - Simon Willison</div>
         <div class="resource-desc">DEF CON AI Village 2023 talk. Willison walks through real-world prompt injection incidents and explains why the problem is architecturally hard to fix.</div>
         <div class="resource-tags"><span class="tag tag-beginner">Beginner</span><span class="tag tag-video">Video</span></div>
       </a>
 
       <a class="resource-card" href="https://www.youtube.com/watch?v=zjkBMFhNj_g" target="_blank" rel="noopener">
-        <div class="resource-title">Intro to Large Language Models — Andrej Karpathy</div>
+        <div class="resource-title">Intro to Large Language Models - Andrej Karpathy</div>
         <div class="resource-desc">Essential 1-hour video on how LLMs work under the hood. Understanding the architecture is key to understanding why prompt injection is so hard to prevent.</div>
         <div class="resource-tags"><span class="tag tag-beginner">Beginner</span><span class="tag tag-video">Video</span></div>
       </a>
 
       <a class="resource-card" href="https://www.youtube.com/watch?v=AsTgDhCphRs" target="_blank" rel="noopener">
-        <div class="resource-title">Hacking AI: Jailbreaks and Prompt Injections — Computerphile</div>
+        <div class="resource-title">Hacking AI: Jailbreaks and Prompt Injections - Computerphile</div>
         <div class="resource-desc">Clear 15-minute explainer on jailbreaks and prompt injection with live demonstrations. Great starting point for anyone new to the concept.</div>
         <div class="resource-tags"><span class="tag tag-beginner">Beginner</span><span class="tag tag-video">Video</span></div>
       </a>
 
       <a class="resource-card" href="https://www.youtube.com/watch?v=wVzuvf9D9BU" target="_blank" rel="noopener">
-        <div class="resource-title">AI Security in Practice — DEF CON AI Village</div>
+        <div class="resource-title">AI Security in Practice - DEF CON AI Village</div>
         <div class="resource-desc">Panel discussion from DEF CON covering the current state of AI security, red-teaming methodologies, and what defenders can actually do today.</div>
         <div class="resource-tags"><span class="tag tag-intermediate">Intermediate</span><span class="tag tag-video">Video</span></div>
       </a>
 
       <a class="resource-card" href="https://www.youtube.com/watch?v=T9aRN5JkmL8" target="_blank" rel="noopener">
-        <div class="resource-title">Indirect Prompt Injection Attacks on LLMs — Johann Rehberger</div>
+        <div class="resource-title">Indirect Prompt Injection Attacks on LLMs - Johann Rehberger</div>
         <div class="resource-desc">Demonstrates real indirect prompt injection attacks against Microsoft 365 Copilot, ChatGPT plugins, and Bing Chat. Directly relevant to Challenge 5 on this platform.</div>
         <div class="resource-tags"><span class="tag tag-intermediate">Intermediate</span><span class="tag tag-video">Video</span></div>
       </a>
 
       <a class="resource-card" href="https://aivillage.org/generative%20red%20team/generative-red-team/" target="_blank" rel="noopener">
-        <div class="resource-title">AI Village — Generative Red Team Resources</div>
+        <div class="resource-title">AI Village - Generative Red Team Resources</div>
         <div class="resource-desc">Repository of talks, writeups, and exercises from the DEF CON AI Village generative AI red team events. Advanced but accessible to motivated students.</div>
         <div class="resource-tags"><span class="tag tag-advanced">Advanced</span><span class="tag tag-video">Video</span></div>
       </a>
@@ -489,7 +489,7 @@
     </div>
   </div>
 
-  <!-- ── FRAMEWORKS ─────────────────────────────────────── -->
+  <!-- Frameworks -->
   <div class="learn-section" id="frameworks">
     <div class="learn-section-header">
       <span class="section-emoji">📋</span>
@@ -499,13 +499,13 @@
     <div class="resource-grid">
 
       <a class="resource-card" href="https://atlas.mitre.org" target="_blank" rel="noopener">
-        <div class="resource-title">MITRE ATLAS — Adversarial Threat Landscape for AI Systems</div>
+        <div class="resource-title">MITRE ATLAS - Adversarial Threat Landscape for AI Systems</div>
         <div class="resource-desc">The AI equivalent of MITRE ATT&amp;CK. A knowledge base of adversarial tactics and techniques against ML systems, with real-world case studies. Industry standard for AI threat modelling.</div>
         <div class="resource-tags"><span class="tag tag-intermediate">Intermediate</span><span class="tag tag-reference">Reference</span></div>
       </a>
 
       <a class="resource-card" href="https://owasp.org/www-project-top-10-for-large-language-model-applications/descriptions/Prompt_Injection.html" target="_blank" rel="noopener">
-        <div class="resource-title">OWASP LLM01 — Prompt Injection Deep Dive</div>
+        <div class="resource-title">OWASP LLM01 - Prompt Injection Deep Dive</div>
         <div class="resource-desc">The full OWASP description of LLM01 Prompt Injection, including attack scenarios, prevention strategies, and example attack vectors. More detailed than the overview page.</div>
         <div class="resource-tags"><span class="tag tag-intermediate">Intermediate</span><span class="tag tag-reference">Reference</span></div>
       </a>

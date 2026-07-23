@@ -1,5 +1,5 @@
 /* ============================================================
-   AI Under Attack — UNSW GuidedCTF-inspired light theme
+   AI Under Attack - UNSW GuidedCTF-inspired light theme
    ============================================================ */
 
 :root {
@@ -111,7 +111,7 @@ a.header-title:hover { opacity: 0.9; }
 .footer-contact a:hover { text-decoration: underline; }
 
 /* ============================================================
-   INDEX PAGE — HERO
+   INDEX PAGE - HERO
    ============================================================ */
 .hero {
   background: var(--white);
@@ -533,7 +533,7 @@ a.header-title:hover { opacity: 0.9; }
 .nav-ch-btn:hover { text-decoration: underline; }
 
 /* ============================================================
-   RIGHT COLUMN — HINTS PANEL (GuidedCTF accordion style)
+   RIGHT COLUMN - HINTS PANEL (GuidedCTF accordion style)
    ============================================================ */
 .hints-panel {
   background: var(--white);

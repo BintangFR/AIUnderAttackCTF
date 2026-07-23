@@ -1,4 +1,4 @@
-/* AI Under Attack — Challenge Page Logic */
+/* AI Under Attack - Challenge Page Logic */
 
 const chatWindow   = document.getElementById('chat-window');
 const chatInput    = document.getElementById('chat-input');
@@ -115,7 +115,7 @@ async function sendMessage() {
     }
   } catch (_) {
     removeTyping();
-    appendMessage('ai', '[Connection error — please try again.]');
+    appendMessage('ai', '[Connection dropped. Not a jailbreak, just wifi. Try again.]');
   }
 
   setInputEnabled(true);
@@ -159,7 +159,7 @@ flagBtn.addEventListener('click', async () => {
 
     if (data.correct) {
       flagFeedback.classList.add('correct');
-      flagFeedback.textContent = `✓ Correct! +${data.points} points. Well done!`;
+      flagFeedback.textContent = `✓ Nice, that's the flag. +${data.points} points. The AI never stood a chance.`;
       flagInput.style.borderColor = 'var(--green)';
       const scoreEl = document.getElementById('score-value');
       if (scoreEl) {
@@ -174,7 +174,7 @@ flagBtn.addEventListener('click', async () => {
   } catch (_) {
     flagFeedback.classList.remove('hidden');
     flagFeedback.classList.add('incorrect');
-    flagFeedback.textContent = 'Connection error — please try again.';
+    flagFeedback.textContent = 'Connection hiccup, not a rejection. Give it another go.';
   }
 
   flagBtn.disabled = false;
@@ -187,7 +187,7 @@ flagInput.addEventListener('input', () => {
 });
 
 // ----------------------------------------------------------------
-// Hints — GuidedCTF accordion style
+// Hints - GuidedCTF accordion style
 // ----------------------------------------------------------------
 document.querySelectorAll('.hint-accordion-btn').forEach(btn => {
   btn.addEventListener('click', async () => {
